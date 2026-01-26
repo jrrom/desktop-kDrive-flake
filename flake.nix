@@ -9,5 +9,6 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       packages.${system}.default = pkgs.callPackage ./default.nix { };
+      nixosModules.default = import ./nixos-module.nix;
     };
 }
