@@ -1,37 +1,49 @@
-{
-  appimageTools,
-  fetchurl,
-  lib,
-}:
+{ pkgs, lib }:
 
 let
   pname = "kDrive";
-  repo = "desktop-kDrive-flake";
   version = "3.7.9.1";
-  
-  src = fetchurl {
-    url = "https://github.com/jrrom/${repo}/releases/download/${version}/${pname}-${version}-amd64.AppImage";
-    hash = "sha256-0qiknfmw108hvrcmi1pml5ls73c3ngr2y18cnzysb9hn2hr5pc40";
+
+  src = pkgs.fetchurl {
+    url = "https://github.com/jrrom/desktop-kDrive-flake/releases/download/${version}/kDrive-${version}-amd64.AppImage";
+    hash = "sha256-gLBbMhQWpqX9twwFL/Kzg42jaaH1hlhZ3hCBwKuzM2I=";
   };
 
-  appimageContents = appimageTools.extract { inherit pname version src; };
+  appimageContents = pkgs.appimageTools.extract {
+    inherit pname version src;
+  };
 in
-appimageTools.wrapType2 {
+pkgs.stdenvNoCC.mkDerivation {
   inherit pname version src;
 
-  extraInstallCommands = ''
-    install -m 444 -D ${appimageContents}/usr/share/applications/kDrive_client.desktop \
+  nativeBuildInputs = [ pkgs.makeWrapper ];
+
+  dontUnpack = true;
+
+  installPhase = ''
+    mkdir -p $out/bin
+    cp $src $out/bin/kDrive.AppImage
+    chmod +x $out/bin/kDrive.AppImage
+
+    makeWrapper ${pkgs.appimage-run}/bin/appimage-run $out/bin/kDrive \
+      --add-flags "$out/bin/kDrive.AppImage" \
+      --set-default XDG_CONFIG_HOME "$HOME/.config" \
+      --set-default XDG_DATA_HOME "$HOME/.local/share"
+
+    mkdir -p $out/share/applications
+    install -m 444 \
+      ${appimageContents}/usr/share/applications/kDrive_client.desktop \
       $out/share/applications/kDrive.desktop
-    
-    cp -r ${appimageContents}/usr/share/icons/hicolor $out/share/icons/
+
+    mkdir -p $out/share/icons
+    cp -r ${appimageContents}/usr/share/icons/hicolor \
+      $out/share/icons/
   '';
 
   meta = {
-    description = "Infomaniak kDrive AppImage";
+    description = "Infomaniak kDrive (AppImage via appimage-run)";
     homepage = "https://github.com/Infomaniak/desktop-kDrive";
-    downloadPage = "https://www.infomaniak.com/en/apps/download-kdrive";
     license = lib.licenses.gpl3;
     platforms = [ "x86_64-linux" ];
-    
   };
 }
