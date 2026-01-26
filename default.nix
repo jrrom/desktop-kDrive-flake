@@ -21,12 +21,12 @@ pkgs.stdenvNoCC.mkDerivation {
   dontUnpack = true;
 
   installPhase = ''
-    mkdir -p $out/bin
-    cp $src $out/bin/kDrive.AppImage
-    chmod +x $out/bin/kDrive.AppImage
+    mkdir -p $out/libexec
+    cp $src $out/libexec/kDrive.AppImage
+    chmod +x $out/libexec/kDrive.AppImage
 
     makeWrapper ${pkgs.appimage-run}/bin/appimage-run $out/bin/kDrive \
-      --add-flags "$out/bin/kDrive.AppImage" \
+      --add-flags "$out/libexec/kDrive.AppImage" \
       --set-default XDG_CONFIG_HOME "$HOME/.config" \
       --set-default XDG_DATA_HOME "$HOME/.local/share"
 
