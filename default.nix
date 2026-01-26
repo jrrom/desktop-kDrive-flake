@@ -2,12 +2,13 @@
   appimageTools,
   fetchurl,
   lib,
-  pname,
-  repo,
-  version,
 }:
 
 let
+  pname = "kDrive";
+  repo = "desktop-kDrive-flake";
+  version = "3.7.9.1";
+  
   src = fetchurl {
     url = "https://github.com/jrrom/${repo}/releases/download/${version}/${pname}-${version}-amd64.AppImage";
     hash = "sha256-0qiknfmw108hvrcmi1pml5ls73c3ngr2y18cnzysb9hn2hr5pc40";
@@ -15,7 +16,7 @@ let
 
   appimageContents = appimageTools.extract { inherit pname version src; };
 in
-appimageTools.wrapType2 rec {
+appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''
@@ -31,5 +32,6 @@ appimageTools.wrapType2 rec {
     downloadPage = "https://www.infomaniak.com/en/apps/download-kdrive";
     license = lib.licenses.gpl3;
     platforms = [ "x86_64-linux" ];
+    
   };
 }
