@@ -1,7 +1,6 @@
 {
   description = "Flake that wraps Infomaniak kDrive AppImage";
-
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
 
   outputs = { self, nixpkgs, ... }:
     let
