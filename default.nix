@@ -10,7 +10,7 @@
 let
   src = fetchurl {
     url = "https://github.com/jrrom/${repo}/releases/download/${version}/${pname}-${version}-amd64.AppImage";
-    hash = lib.fakeSha256;
+    hash = "sha256-0qiknfmw108hvrcmi1pml5ls73c3ngr2y18cnzysb9hn2hr5pc40";
   };
 
   appimageContents = appimageTools.extract { inherit pname version src; };
