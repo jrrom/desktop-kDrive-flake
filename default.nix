@@ -2,7 +2,7 @@
 
 let
   pname = "kDrive";
-  version = "3.7.9.1";
+  version = "3.7.10.1";
 
   src = pkgs.fetchurl {
     url = "https://github.com/jrrom/desktop-kDrive-flake/releases/download/${version}/kDrive-${version}-amd64.AppImage";
