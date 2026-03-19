@@ -6,7 +6,7 @@ let
 
   src = pkgs.fetchurl {
     url = "https://github.com/jrrom/desktop-kDrive-flake/releases/download/${version}/kDrive-${version}-amd64.AppImage";
-    hash = "sha256-gLBbMhQWpqX9twwFL/Kzg42jaaH1hlhZ3hCBwKuzM2I=";
+    hash = "sha256-I/D2v7VTyQNu/OFDHzxJ+BAEcbBmUht6AfuiYHDGF68=";
   };
 
   appimageContents = pkgs.appimageTools.extract {
