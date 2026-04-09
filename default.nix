@@ -2,11 +2,11 @@
 
 let
   pname = "kDrive";
-  version = "3.7.10.1";
+  version = "3.8.2.6";
 
   src = pkgs.fetchurl {
     url = "https://github.com/jrrom/desktop-kDrive-flake/releases/download/${version}/kDrive-${version}-amd64.AppImage";
-    hash = "sha256-I/D2v7VTyQNu/OFDHzxJ+BAEcbBmUht6AfuiYHDGF68=";
+    hash = "sha256-sob6jStvSHunR6bmixlHCaQ8gmdyPd8lBsyg5o0/YpE=";
   };
 
   appimageContents = pkgs.appimageTools.extract {
