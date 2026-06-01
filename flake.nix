@@ -6,7 +6,8 @@
     let
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      packages.x86_64-linux.default = pkgs.callPackage ./default.nix { };
+      packages.x86_64-linux.default =
+        nixpkgs.legacyPackages.x86_64-linux.callPackage ./default.nix { };
       nixosModules.default = import ./nixos-module.nix;
     };
 }
