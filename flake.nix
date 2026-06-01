@@ -3,9 +3,7 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs";
 
   outputs = { self, nixpkgs, ... }:
-    let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
+    {
       packages.x86_64-linux.default =
         nixpkgs.legacyPackages.x86_64-linux.callPackage ./default.nix { };
       nixosModules.default = import ./nixos-module.nix;
